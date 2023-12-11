@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 import folium
+from django.contrib import messages
 
 # Create your views here.
 
@@ -26,3 +27,15 @@ def home(request):
 
     context = {"map": m._repr_html_(), "db": stations }
     return render(request, "home.html", context)
+
+def suggestion(request):
+    recupere = Suggestion.objects.all()
+    if request.method == "POST":
+        #recuperation des informations issues du formulaire
+        titre = request.POST.get("titre")
+        contenu = request.POST.get("contenu")
+        new = Suggestion.objects.create(titre=titre, contenu=contenu)
+        new.save()
+        messages.success(request, "La suggestion a été envoyée avec succés")
+        redirect('suggestion')
+    return render(request, "suggestion.html", {"ms": recupere})

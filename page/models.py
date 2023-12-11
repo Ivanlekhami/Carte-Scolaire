@@ -45,6 +45,3 @@ class Suggestion(models.Model):
     class Meta:
         verbose_name = "Suggestion"
         verbose_name_plural = "Suggestions"
-
-    def __str__(self):
-        return self.name

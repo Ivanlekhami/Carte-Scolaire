@@ -20,7 +20,7 @@
               {% block nav %}
               {% endblock %}
               <li class="nav-item">
-                <a class="nav-link active text-white" aria-current="page" href="#">Suggestion</a>
+                <a class="nav-link active text-white" aria-current="page" href="{% url 'suggestion' %}">Suggestion</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white" href="#">A propos</a>
@@ -30,7 +30,7 @@
               </li>
             </ul>
             <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" name="recherche" placeholder="Recherche" aria-label="Search">
+              <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Rechercher</button>
             </form>
           </div>

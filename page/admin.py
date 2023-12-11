@@ -8,6 +8,11 @@ class AdminEtablissemennt(admin.ModelAdmin):
     list_display = ("name","langue", "latitude", "longitude", "categorie", "type")
     # liste des tuples à afficher
     list_per_page = 7
+@admin.register(Suggestion)
+class AdminSuggestion(admin.ModelAdmin):
+    list_display = ("titre","contenu")
+    # liste des tuples à afficher
+    list_per_page = 7
 
 #on importe la table créée pour l'administrateur
 admin.site.register(CustomUser)
@@ -15,4 +20,3 @@ admin.site.register(Categorie)
 admin.site.register(Cycle)
 admin.site.register(Type)
 admin.site.register(Composer)
-admin.site.register(Suggestion)
