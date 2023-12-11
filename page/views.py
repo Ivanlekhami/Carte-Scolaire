@@ -21,7 +21,7 @@ def home(request):
     for station in stations:
         coordinates = (station.latitude, station.longitude)
         folium.Marker(coordinates,
-                      popup=f"{station.name} <br> {coordinates} <br> {station.langue} <br> {station.categorie} ",
+                      popup=f"{station.name} <br> {station.langue} <br> {station.type} <br> {station.categorie} ",
                       tooltip=station.name
                       ).add_to(m)
 
