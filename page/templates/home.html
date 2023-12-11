@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Ecole publique
+    </a>
+    <ul class="dropdown-menu bg-body-secondary">
+      {% for c in db %}
+        {% if c.categorie.name == 'Publique' %}
+          <li><a class="dropdown-item" href="#carte">{{ c.name }}</a></li>
+          <li><hr class="dropdown-divider"></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Ecole privée
+    </a>
+    <ul class="dropdown-menu bg-body-secondary">
+      {% for c in db %}
+        {% if c.categorie.name == 'Privée' %}
+          <li><a class="dropdown-item" href="#carte">{{ c.name }}</a></li>
+          <li><hr class="dropdown-divider"></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </li>
+{% endblock %}
+
+{% block content %}
+  <div class="bg-dark">
+    <div class="mt-5 mb-5">
+      <div class="p-4">
+        <h1 class="text-center text-white">Carte Scolaire de la ville de Ngaoundéré</h1>
+      </div>
+        <a id="carte">{{ map|safe }}</a>
+      <div class="p-4">
+        <h3 class="text-center text-white">School Map of Ngaoundere</h3>
+      </div>
+    </div>
+  </div>
+  <div class="container bg-body-secondary shadow">
+    <h1 class="text-center">Trouvez votre établissement de choix</h1>
+    <p class="text-center">en saissisant l'adresse dans l'espace réservé <i class="bi-search"></i> ,
+    ou pointez l'établissement à l'aide de l'outil <i class="bi-geo-alt"></i> <br> Vous pouvez laisser un message
+      en allant sur <a href="#" class="text-decoration-none" title="cliquer ici">suggestion</a> ou alors consuler cette
+      <a href="#" class="text-decoration-none" title="cliquer ici">page</a> pour avoir d'avantage d'information sur le manuel
+      d'utilisation de l'application.
+    </p>
+  </div>
+
+{% endblock %}

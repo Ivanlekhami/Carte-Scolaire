@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for ecole in ets %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+              <h5 class="card-title">{{ ecole.name }}</h5>
+              <p class="card-text">{{ ecole.langue }}</p>
+              <p class="card-text">{{ ecole.categorie.name }}</p>
+              <p class="card-text">{{ ecole.type.name }}</p>
+            <a href="/" class="btn btn-primary">Aller sur la carte</a>
+          </div>
+        </div>
+
+        {% empty %}
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                  <h5 class="card-title">Aucune école ne correspond à votre recherche <br>Veuillez réssayer !!</h5>
+                  <a href="/" class="btn btn-primary">Retourner a la page d'accueil</a>
+              </div>
+            </div>
+
+    {% endfor %}
+{% endblock %}

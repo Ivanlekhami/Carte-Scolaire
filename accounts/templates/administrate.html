@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {{ user.username }}
+        <a href="{% url 'logout' %}" class="text-decoration-none">Déconnexion</a>
+        {% if user.username == 'admin' %}
+            <a href="{% url 'register' %}" class="text-decoration-none">Créer un compte</a>
+        {% endif %}
+    {% endif %}
+    {% for message in messages %}
+        <strong>{{ message }}</strong>
+    {% endfor %}
+{% endblock %}
