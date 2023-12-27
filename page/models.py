@@ -35,9 +35,6 @@ class Composer(models.Model):
     etablissement = models.ForeignKey(Etablissement, on_delete=models.DO_NOTHING)
     cycle = models.ForeignKey(Cycle, on_delete=models.DO_NOTHING)
 
-    def __str__(self):
-        return self.name
-
 class Suggestion(models.Model):
     titre = models.CharField(max_length=50)
     contenu = models.CharField(max_length=200)

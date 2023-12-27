@@ -7,8 +7,8 @@
     </a>
     <ul class="dropdown-menu bg-body-secondary">
       {% for c in db %}
-        {% if c.categorie.name == 'Publique' %}
-          <li><a class="dropdown-item" href="#carte">{{ c.name }}</a></li>
+        {% if c.categorie.name == 'publique' %}
+          <li><a class="dropdown-item" href="{% url 'result' c.id %}">{{ c.name }}</a></li>
           <li><hr class="dropdown-divider"></li>
         {% endif %}
       {% endfor %}
@@ -21,13 +21,26 @@
     </a>
     <ul class="dropdown-menu bg-body-secondary">
       {% for c in db %}
-        {% if c.categorie.name == 'Privée' %}
-          <li><a class="dropdown-item" href="#carte">{{ c.name }}</a></li>
+        {% if c.categorie.name == 'privée' %}
+          <li><a class="dropdown-item" href="{% url 'result' c.id %}">{{ c.name }}</a></li>
           <li><hr class="dropdown-divider"></li>
         {% endif %}
       {% endfor %}
     </ul>
   </li>
+{% endblock %}
+
+{% block search %}
+  <form class="d-flex" role="search">
+    <input class="form-control me-2" name="recherche" type="search" placeholder="Recherche" aria-label="Search">
+    <select name="filtre" style="width:30px; margin-right:4px" class="form-select form-select-sm" aria-label="Small select example">
+      <option selected>nom</option>
+      <option value="categorie">catégorie</option>
+      <option value="type">type</option>
+      <option value="langue">langue</option>
+    </select>
+    <button class="btn btn-outline-success" type="submit">Rechercher</button>
+  </form>
 {% endblock %}
 
 {% block content %}
@@ -36,7 +49,7 @@
       <div class="p-4">
         <h1 class="text-center text-white">Carte Scolaire de la ville de Ngaoundéré</h1>
       </div>
-        <a id="carte">{{ map|safe }}</a>
+        <a>{{ map|safe }}</a>
       <div class="p-4">
         <h3 class="text-center text-white">School Map of Ngaoundere</h3>
       </div>
@@ -46,10 +59,16 @@
     <h1 class="text-center">Trouvez votre établissement de choix</h1>
     <p class="text-center">en saissisant l'adresse dans l'espace réservé <i class="bi-search"></i> ,
     ou pointez l'établissement à l'aide de l'outil <i class="bi-geo-alt"></i> <br> Vous pouvez laisser un message
-      en allant sur <a href="#" class="text-decoration-none" title="cliquer ici">suggestion</a> ou alors consuler cette
-      <a href="#" class="text-decoration-none" title="cliquer ici">page</a> pour avoir d'avantage d'information sur le manuel
+      en allant sur <a href="{% url 'suggestion' %}" class="text-decoration-none" title="cliquer ici">suggestion</a> ou alors consuler cette
+      <a href="{% url 'apropos' %}" class="text-decoration-none" title="cliquer ici">page</a> pour avoir d'avantage d'information sur le manuel
       d'utilisation de l'application.
     </p>
   </div>
 
+{% endblock %}
+
+{% block footer %}
+    <footer class="bg-dark mt-5 p-3">
+      <p class="text-center text-white">Tout droit réservé, developpé par UN-M1SLED | 2023-2024</p>
+    </footer>
 {% endblock %}

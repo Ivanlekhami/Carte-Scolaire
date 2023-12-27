@@ -1,14 +1,103 @@
-{% extends "base.html" %}
+{% extends "baseadmin.html" %}
 
-{% block content %}
-    {% if user.is_authenticated %}
-        {{ user.username }}
-        <a href="{% url 'logout' %}" class="text-decoration-none">Déconnexion</a>
-        {% if user.username == 'admin' %}
-            <a href="{% url 'register' %}" class="text-decoration-none">Créer un compte</a>
-        {% endif %}
-    {% endif %}
-    {% for message in messages %}
-        <strong>{{ message }}</strong>
-    {% endfor %}
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link text-white" href="#suggestion">Consulter les suggestions</a>
+    </li>
+{% endblock %}
+
+{% block corps %}
+    <section class="container mt-5 text-center">
+        <div>
+            <legend> Liste des Administrateurs </legend>
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th> id </th>
+                    <th> Username </th>
+                    <th> Nom </th>
+                    <th> Prénom </th>
+                    <th> Email </th>
+                    <th>
+                        {% if user.username == 'admin' %}
+                            Action
+                        {% endif %}
+                    </th>
+                </tr>
+                {% for ad in admin %}
+                    <tr>
+                        <td>{{ ad.id }}</td>
+                        <td>{{ ad.username }}</td>
+                        <td>{{ ad.first_name }}</td>
+                        <td>{{ ad.last_name }}</td>
+                        <td>{{ ad.email }}</td>
+                        <td>
+                            {% if user.username == 'admin' %}
+                                <a href="{% url 'modifier_admin' ad.id %}" class="text-decoration-none">modifier</a>
+                                <a href="{% url 'delete_admin' ad.id %}" class="text-decoration-none text-danger">supprimer</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="mt-5 mb-5">
+            <legend> Liste des établissements </legend>
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th> id </th>
+                    <th> Nom </th>
+                    <th> Langue d'enseignement </th>
+                    <th> Longitude </th>
+                    <th> Latitude </th>
+                    <th> Catégorie </th>
+                    <th> Type </th>
+                    <th> Action </th>
+                </tr>
+                {% for ecole in ets %}
+                    <tr>
+                        <td>{{ ecole.id }}</td>
+                        <td>{{ ecole.name }}</td>
+                        <td>{{ ecole.langue }}</td>
+                        <td>{{ ecole.longitude }}</td>
+                        <td>{{ ecole.latitude }}</td>
+                        <td>{{ ecole.categorie.name }}</td>
+                        <td>{{ ecole.type.name }}</td>
+                        <td>
+                            <a href="{% url 'modifier' ecole.id %}" class="text-decoration-none">modifier</a>
+                            {% if user.username == 'admin' %}
+                                <a href="" class="text-decoration-none text-danger">désactiver</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="mt-5 mb-5" id="suggestion">
+            <legend> Les suggestions </legend>
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th> id </th>
+                    <th> Titre </th>
+                    <th> Contenu </th>
+                    <th>
+                        {% if user.username == 'admin' %}
+                            Action
+                        {% endif %}
+                    </th>
+                </tr>
+                {% for sug in suggestion %}
+                    <tr>
+                        <td>{{ sug.id }}</td>
+                        <td>{{ sug.titre }}</td>
+                        <td>{{ sug.contenu }}</td>
+                        <td>
+                            {% if user.username == 'admin' %}
+                                <a href="{% url 'delete_suggestion' sug.id %}" class="text-decoration-none text-danger">supprimer</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
 {% endblock %}

@@ -1,0 +1,53 @@
+{% extends "baseadmin.html" %}
+
+{% block corps %}
+<div class="container">
+    <div class="mt-5 mb-5 shadow bg-dark">
+        <h1 class="text-center text-white p-4">Ajouter un établissement</h1>
+        <h3 class="text-center text-danger mb-3">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </h3>
+        <form method="POST">
+            {% csrf_token %}
+            <p class="text-center">
+                <label for="name" class="text-white">Nom d'école</label> <br>
+                <input id="name" style="width:70%; height:40px" type="text" name="name" placeholder="Entrer le nom" required>
+            </p>
+            <p class="text-center">
+                <label for="langue" class="text-white">Langue d'enseignement</label> <br>
+                <input id="langue" style="width:70%; height:40px" type="text" name="langue" placeholder="Entrer la langue d'enseignement">
+            </p>
+            <p class="text-center">
+                <label for="longitude" class="text-white">Longitude</label> <br>
+                <input id="longitude" style="width:70%; height:40px" type="text" name="longitude" placeholder="Entrer la longitude de l'école">
+            </p>
+            <p class="text-center">
+                <label for="latitude" class="text-white">latitude</label> <br>
+                <input id="latitude" style="width:70%; height:40px" type="text" name="latitude" placeholder="Entrer la latitude de l'école" required>
+            </p>
+            <p class="text-center">
+                <label for="type" class="text-white">Type</label> <br>
+                <select id="type" name="type" style="width:70%; height:40px">
+                    {% for type in types %}
+                        <option>{{ type.name }}</option>
+                    {% endfor %}
+		        </select>
+            </p>
+            <p class="text-center">
+                <label for="categorie" class="text-white">Catégorie</label> <br>
+                <select id="categorie" name="categorie" style="width:70%; height:40px">
+                    {% for cat in categorie %}
+                        <option>{{ cat.name }}</option>
+                    {% endfor %}
+		        </select>
+            </p>
+
+            <div class="d-flex justify-content-center p-4">
+                <button type="submit" class="btn btn-success">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
