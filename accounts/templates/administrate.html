@@ -4,11 +4,19 @@
     <li class="nav-item">
         <a class="nav-link text-white" href="#suggestion">Consulter les suggestions</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link text-white" href="#ecole">Liste établissements</a>
+    </li>
 {% endblock %}
 
 {% block corps %}
-    <section class="container mt-5 text-center">
-        <div>
+    <section class="container text-center">
+        <h3 class="text-center text-success mt-5">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </h3>
+        <div class="mt-5">
             <legend> Liste des Administrateurs </legend>
             <table class="table table-dark table-striped">
                 <tr>
@@ -40,7 +48,7 @@
                 {% endfor %}
             </table>
         </div>
-        <div class="mt-5 mb-5">
+        <div class="mt-5 mb-5" id="ecole">
             <legend> Liste des établissements </legend>
             <table class="table table-dark table-striped">
                 <tr>
@@ -54,6 +62,7 @@
                     <th> Action </th>
                 </tr>
                 {% for ecole in ets %}
+
                     <tr>
                         <td>{{ ecole.id }}</td>
                         <td>{{ ecole.name }}</td>
@@ -63,9 +72,11 @@
                         <td>{{ ecole.categorie.name }}</td>
                         <td>{{ ecole.type.name }}</td>
                         <td>
-                            <a href="{% url 'modifier' ecole.id %}" class="text-decoration-none">modifier</a>
-                            {% if user.username == 'admin' %}
-                                <a href="" class="text-decoration-none text-danger">désactiver</a>
+                            {% if ecole.actif %}
+                                <a href="{% url 'modifier' ecole.id %}" class="text-decoration-none">modifier</a>
+                                <a href="{% url 'desactiver' ecole.id %}" class="text-decoration-none text-danger">désactiver</a>
+                            {% else %}
+                                <a href="{% url 'activer' ecole.id %}" class="text-decoration-none text-danger">activer</a>
                             {% endif %}
                         </td>
                     </tr>
@@ -99,5 +110,6 @@
                 {% endfor %}
             </table>
         </div>
+        <h4 class="mb-5"><a href="#haut" class="text-decoration-none"><i class="bi-house-fill"></i> Plus haut</a></h4>
     </section>
 {% endblock %}

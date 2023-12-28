@@ -5,7 +5,7 @@ from accounts.models import *
 #On definit les attributs qu'on veut afficher pour l'administrateur par une autre manière
 @admin.register(Etablissement)
 class AdminEtablissemennt(admin.ModelAdmin):
-    list_display = ("name","langue", "latitude", "longitude", "categorie", "type")
+    list_display = ("name","langue", "latitude", "longitude", "categorie", "type", "actif")
     # liste des tuples à afficher
     list_per_page = 7
 @admin.register(Suggestion)

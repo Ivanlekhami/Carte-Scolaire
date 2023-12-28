@@ -24,6 +24,7 @@ class Etablissement(models.Model):
     langue = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    actif = models.BooleanField(default=True)
     categorie = models.ForeignKey(Categorie, on_delete=models.DO_NOTHING)
     type = models.ForeignKey(Type, on_delete=models.DO_NOTHING)
 

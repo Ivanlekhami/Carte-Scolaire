@@ -26,7 +26,7 @@ def register(request):
         user.last_name = lastname
         user.save()
         messages.success(request, "Le compte a été crée avec succès")
-        return redirect("register")
+        return redirect("administrate")
     return render(request, "register.html")
 
 #connecter l'utilisateur
@@ -103,19 +103,20 @@ def modifier(request, ecole_id=None):
             ecole_cible.type = type
             ecole_cible.save()
             messages.success(request, "Etablissement a été modifié")
-            return render(request, "modifier.html", {"types": types, "categorie": categories})
+            return redirect("administrate")
     return render(request, "modifier.html", {"types": types, "categorie": categories})
 def modifier_admin(request, admin_id=None):
     if request.method == 'POST':
         if admin_id is not None:
             admin_cible = User.objects.get(id=admin_id)
-            admin_cible.username = request.POST.get("username")
+            if admin_id != 1:
+                admin_cible.username = request.POST.get("username")
             admin_cible.first_name = request.POST.get("firstname")
             admin_cible.last_name = request.POST.get("lastname")
             admin_cible.email = request.POST.get("email")
             admin_cible.save()
             messages.success(request, "l'administrateur a été modifié")
-            return render(request, "modifier_admin.html")
+            return redirect("administrate")
     return render(request, "modifier_admin.html")
 def delete_admin(request, admin_id=None):
     admin = User.objects.all()
@@ -125,7 +126,8 @@ def delete_admin(request, admin_id=None):
     if admin_id is not None:
         user_cible = User.objects.get(id=admin_id)
         user_cible.delete()
-        return render(request, "administrate.html", context)
+        messages.success(request, "Suppression réussie!")
+        return redirect("administrate")
     return render(request, "administrate.html", context)
 def delete_suggestion(request, sug_id=None):
     admin = User.objects.all()
@@ -135,5 +137,20 @@ def delete_suggestion(request, sug_id=None):
     if sug_id is not None:
         option_cible = Suggestion.objects.get(id=sug_id)
         option_cible.delete()
-        return render(request, "administrate.html", context)
+        messages.success(request, "Suppression réussie!")
+        return redirect("administrate")
     return render(request, "administrate.html", context)
+def desactiver(request, ecole_id=None):
+    if ecole_id is not None:
+        ecole_cible = Etablissement.objects.get(id=ecole_id)
+        ecole_cible.actif = False
+        ecole_cible.save()
+        return redirect("administrate")
+    return render(request, "administrate.html")
+def activer(request, ecole_id=None):
+    if ecole_id is not None:
+        ecole_cible = Etablissement.objects.get(id=ecole_id)
+        ecole_cible.actif = True
+        ecole_cible.save()
+        return redirect("administrate")
+    return render(request, "administrate.html")

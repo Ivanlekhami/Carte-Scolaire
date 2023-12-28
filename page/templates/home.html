@@ -7,7 +7,7 @@
     </a>
     <ul class="dropdown-menu bg-body-secondary">
       {% for c in db %}
-        {% if c.categorie.name == 'publique' %}
+        {% if c.categorie.name == 'publique' and c.actif == True %}
           <li><a class="dropdown-item" href="{% url 'result' c.id %}">{{ c.name }}</a></li>
           <li><hr class="dropdown-divider"></li>
         {% endif %}
@@ -21,7 +21,7 @@
     </a>
     <ul class="dropdown-menu bg-body-secondary">
       {% for c in db %}
-        {% if c.categorie.name == 'privée' %}
+        {% if c.categorie.name == 'privée' and c.actif == True %}
           <li><a class="dropdown-item" href="{% url 'result' c.id %}">{{ c.name }}</a></li>
           <li><hr class="dropdown-divider"></li>
         {% endif %}

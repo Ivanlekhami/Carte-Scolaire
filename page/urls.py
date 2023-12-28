@@ -16,4 +16,6 @@ urlpatterns = [
     path("modifier_admin/<int:admin_id>", modifier_admin, name="modifier_admin"),
     path("delete_admin/<int:admin_id>", delete_admin, name="delete_admin"),
     path("delete_suggestion/<int:sug_id>", delete_suggestion, name="delete_suggestion"),
+    path("desactiver/<int:ecole_id>", desactiver , name="desactiver"),
+    path("activer/<int:ecole_id>", activer , name="activer"),
 ]
