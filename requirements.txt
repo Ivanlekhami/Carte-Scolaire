@@ -2,3 +2,4 @@ Python==3.x.x
 Django==4.2.7
 folium==0.15.1
 Avoir une connexion internet
+un editeur de texte intelligent (Pycharm ou VS Code)
