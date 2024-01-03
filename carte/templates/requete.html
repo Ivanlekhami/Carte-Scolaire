@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block search %}
+  <form class="d-flex" role="search">
+    <input class="form-control me-2" name="recherche" type="search" placeholder="Recherche" aria-label="Search">
+    <select name="filtre" style="width:30px; margin-right:4px" class="form-select form-select-sm" aria-label="Small select example">
+      <option selected>nom</option>
+      <option value="categorie">categorie</option>
+      <option value="type">type</option>
+      <option value="langue">langue</option>
+    </select>
+    <button class="btn btn-outline-success" type="submit">Rechercher</button>
+  </form>
+{% endblock %}
+
+{% block content %}
+    {% for ecole in ets %}
+      <div class="card m-2 mt-5 mb-5 text-center">
+        <div class="card-header">
+          <strong>{{ ecole.name|upper }}</strong>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Langues d'enseignement :  {{ecole.langue }}</h5>
+          <p class="card-text">Cycle : {{ ecole.cycle.name }}</p>
+          <p class="card-text">Type d'école : {{ ecole.type.name }}</p>
+          <p class="card-text">Catégorie d'école : {{ ecole.categorie.name }}</p>
+          <a href="{% url 'result' ecole.id %}" class="btn btn-primary">Voir sur la carte</a>
+        </div>
+      </div>
+
+        {% empty %}
+        <div class="card m-2 mt-5 mb-5 text-center">
+          <div class="card-body">
+            <h5 class="card-title">Auncun établissement ne correspond à votre critère de recherche ! <br><br>
+              Veuillez réessayer !</h5> <br>
+            <a href="{% url 'home' %}" class="btn btn-primary">Retourner à la page d'accueil</a>
+          </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}
